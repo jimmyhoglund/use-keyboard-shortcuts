@@ -4,6 +4,7 @@ export type Shortcut = {
   keys: string[]
   onEvent: (event: ShortcutEvent) => void
   disabled?: boolean
+  preventDefault?: boolean
 }
 
 export enum EventType {
@@ -133,7 +134,10 @@ export const useKeyboardShortcuts = (
       shortcutHasPriority(shortcut, event)
 
     if (shouldExecAction) {
-      event.preventDefault()
+      // If undefined, use the default behavior which is true
+      if (shortcut.preventDefault !== false) {
+        event.preventDefault()
+      }
       shortcut.onEvent(event)
     }
   }

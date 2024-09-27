@@ -12,7 +12,7 @@
     { keys: ["shift", "b"], onEvent: event => alert("shift + b was pressed") },
     { keys: ["Tab"], handleNext },
     { keys: ["Esc"], handleClose },
-    { keys: ["Enter"], handleSubmit },
+    { keys: ["Enter"], handleSubmit, preventDefault: false },
   ])
 
   useKeyboardShortcuts(
@@ -52,7 +52,7 @@ const Example = () => {
 
   useKeyboardShortcuts([
     { keys: ["ctrl", "a"], onEvent: event => alert("ctrl + a was pressed") },
-    { keys: ["Esc"], onEvent: () => setIsOpen(false)  },
+    { keys: ["Esc"], onEvent: () => setIsOpen(false) },
   ])
 
   return <div>...</div>
@@ -66,19 +66,19 @@ const Example = () => {
 | Argument (in order) | Type                       | Default     | Description                                                                                                                  |
 | ------------------- | -------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | shortcuts           | `Shortcut[]`               | `undefined` | Array of `Shortcut`-objects that should listen to the specified `dependencies` and `eventType`. See Shortcut object-section. |
-| active              | `boolean`                  | `true`      | Disables or enables all shortcuts.
-| dependencies        | `any[]`                    | `[]`        | List dependencies of the shortcuts
-| eventType           | `"keydown"`/`"mousewheel"` | `"keydown"` | Wether it should listen for keyboard or mouse scroll events
+| active              | `boolean`                  | `true`      | Disables or enables all shortcuts.                                                                                           |
+| dependencies        | `any[]`                    | `[]`        | List dependencies of the shortcuts                                                                                           |
+| eventType           | `"keydown"`/`"mousewheel"` | `"keydown"` | Wether it should listen for keyboard or mouse scroll events                                                                  |
 
 ## Shortcut object
 
 <!-- This table was generated via http://www.tablesgenerator.com/markdown_tables -->
 
-| Key        | Type              | Description                                                          |
-| ---------- | ----------------- | -------------------------------------------------------------------- |
+| Key        | Type              | Description                                                                                                                                           |
+| ---------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `keys`     | `string[]`        | Combination of [keys](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values) that needs to be pressed to trigger `onEvent()`. |
-| `onEvent`  | `function(event)` | Action for when combination in `keys` are pressed.                   |
-| `disabled` | `boolean`         | Used to disable a shortcut in particular                             |
+| `onEvent`  | `function(event)` | Action for when combination in `keys` are pressed.                                                                                                    |
+| `disabled` | `boolean`         | Used to disable a shortcut in particular                                                                                                              |
 
 ## Example
 
@@ -86,4 +86,4 @@ See the example-folder for an extended example of how to use this hook with the 
 
 ## License
 
-MIT © [SAITS](https://github.com/SAITS)
+MIT ï¿½ [SAITS](https://github.com/SAITS)

@@ -116,6 +116,71 @@ describe("useKeyboardShortcuts", () => {
     expect(comboEvent).toHaveBeenCalled()
   })
 
+  it("does not preventDefault", async () => {
+    const comboEvent = jest.fn()
+
+    const Component = () => {
+      useKeyboardShortcuts([
+        {
+          keys: ["Enter"],
+          preventDefault: false,
+          onEvent: e => {
+            if (!e.defaultPrevented) comboEvent()
+          },
+        },
+      ])
+      return null
+    }
+
+    render(<Component />)
+
+    fireEvent.keyDown(document, { code: "Enter" })
+    expect(comboEvent).toHaveBeenCalled()
+  })
+
+  it("does preventDefault by default", async () => {
+    const comboEvent = jest.fn()
+
+    const Component = () => {
+      useKeyboardShortcuts([
+        {
+          keys: ["Enter"],
+          onEvent: e => {
+            if (e.defaultPrevented) comboEvent()
+          },
+        },
+      ])
+      return null
+    }
+
+    render(<Component />)
+
+    fireEvent.keyDown(document, { code: "Enter" })
+    expect(comboEvent).toHaveBeenCalled()
+  })
+
+  it("does preventDefault", async () => {
+    const comboEvent = jest.fn()
+
+    const Component = () => {
+      useKeyboardShortcuts([
+        {
+          keys: ["Enter"],
+          preventDefault: true,
+          onEvent: e => {
+            if (e.defaultPrevented) comboEvent()
+          },
+        },
+      ])
+      return null
+    }
+
+    render(<Component />)
+
+    fireEvent.keyDown(document, { code: "Enter" })
+    expect(comboEvent).toHaveBeenCalled()
+  })
+
   it("handles ctrl + shift + char", async () => {
     const { findByText } = render(<TestComponent />)
 
